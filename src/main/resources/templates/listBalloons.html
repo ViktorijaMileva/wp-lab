@@ -1,0 +1,108 @@
+<html xmls="http://www.w3/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>Balloon Order page - Welcome and choose a Balloon</title>
+    <style type="text/css">
+        body {
+            width: 900px;
+            margin: auto;
+        }
+        td.text-right{
+            width: 300px;
+        }
+
+        form.form-delete{
+            float: left;
+            margin-right: 5px;
+        }
+        form.btn-buy{
+            float: right;
+        }
+        a.btn-dark{
+            background-color: #f44336;
+            color: white;
+            padding: 14px 25px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+        }
+        a.btn-info{
+            background-color: gainsboro;
+            color: black;
+            padding: 1px 10px;
+            text-align: center;
+            text-decoration: none;
+        }
+        a.btn-info:hover{
+            background-color: paleturquoise;
+        }
+        th.balloon-name, th.balloon-description, th.balloon-manufacturer, th.balloon-country{
+            padding-right: 10px;
+        }
+        form.form-sort{
+            padding-top: 10px;
+        }
+
+
+    </style>
+</head>
+<body>
+<header>
+    <h1>Welcome to our Balloon Shop App</h1>
+</header>
+<main>
+    <div class="container mb-4">
+        <div class="row">
+            <div class="col-12">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th class="balloon-name" scope="col">Balloon name</th>
+                            <th class="balloon-description" scope="col">Balloon description</th>
+                            <th class="balloon-manufacturer" scope="col">Manufacturer</th>
+                            <th class="balloon-country" scope="col">Country</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="balloon : ${balloonList}">
+                            <td th:text="${balloon.getName()}"></td>
+                            <td th:text="${balloon.getDescription()}"></td>
+                            <td th:text="${ balloon.getManufacturer() != null}? ${balloon.getManufacturer().getName()} : 'No Manufacturer'"></td>
+                            <td th:text="${balloon.getCountry() != null} ? ${balloon.getCountry().getName()} : 'No Country'"></td>
+                            <td class="text-right">
+                                <form class="form-delete" th:action="@{'/balloons/delete/{id}' (id=${balloon.getId()})}" th:method="DELETE">
+                                    <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                                </form>
+                                <form class="btn-buy" th:action="@{/}" th:method="POST">
+                                    <input type="radio" name="name" th:value="${balloon.getName()}">
+                                    <input  type="submit" value="Buy Balloon">
+                                </form>
+                                <a th:href="@{'/balloons/edit-form/{id}' (id=${balloon.getId()})}"
+                                   class="btn btn-sm btn-info">Edit</a>
+
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="col mb-3">
+                <div class="row">
+                    <div class="col-sm-12 col-md-12">
+                        <a href="/balloons/add-form" class="btn btn-block btn-dark">Add new balloon</a>
+                    </div>
+                </div>
+            </div>
+            <form class="form-sort" th:action="@{/balloons/sort}" th:method="POST">
+                <input type="text" name="country">
+                <button type="submit">Submit</button>
+
+            </form>
+
+            
+
+</main>
+</body>
+</html>
