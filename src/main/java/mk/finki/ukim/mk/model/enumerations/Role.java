@@ -1,4 +1,4 @@
-package mk.finki.ukim.mk.model.enumerations;
+/*package mk.finki.ukim.mk.model.enumerations;
 
 import org.springframework.security.core.GrantedAuthority;
 
@@ -10,4 +10,4 @@ public enum  Role implements GrantedAuthority {
     public String getAuthority() {
         return name();
     }
-}
+}*/

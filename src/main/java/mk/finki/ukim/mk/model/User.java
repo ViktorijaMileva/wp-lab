@@ -1,9 +1,7 @@
 package mk.finki.ukim.mk.model;
 
 import lombok.Data;
-import mk.finki.ukim.mk.model.enumerations.Role;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
+
 
 import javax.persistence.*;
 import java.util.Collection;
@@ -12,7 +10,7 @@ import java.util.List;
 @Data
 @Entity
 @Table(name = "users")
-public class User implements UserDetails {
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -20,16 +18,16 @@ public class User implements UserDetails {
     private String password;
     private String name;
     private String surname;
-    private boolean isAccountNonExpired = true;
+    /*private boolean isAccountNonExpired = true;
 
     private boolean isAccountNonLocked = true;
 
     private boolean isCredentialsNonExpired = true;
 
-    private boolean isEnabled = true;
+    private boolean isEnabled = true;*/
 
-    @Enumerated(value = EnumType.STRING)
-    private Role role;
+    /*@Enumerated(value = EnumType.STRING)
+    private Role role;*/
 
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER) //user- imeto na svojstvoto. obratno od toa vo shoppingCart many to one, eden user kon povekje shoppingCart objekti
     private List<ShoppingCart> carts;
@@ -37,18 +35,17 @@ public class User implements UserDetails {
     /*@ManyToMany
     private List<ShoppingCart> carts;*/
 
-    public User(String username, String password, String name, String surname, Role role) {
+    public User(String username, String password, String name, String surname) {
         this.username = username;
         this.password = password;
         this.name = name;
         this.surname = surname;
-        this.role = role;
+        //this.role = role;
     }
 
     public User() {
     }
-
-    @Override
+    /*@Override
     public boolean isAccountNonExpired() {
         return isAccountNonExpired;
     }
@@ -71,7 +68,7 @@ public class User implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return Collections.singletonList(role);
-    }
+    }*/
 
     public Long getId() {
         return id;
