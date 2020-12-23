@@ -32,7 +32,7 @@ public class LoginController {
             user = this.authService.login(request.getParameter("username"),
                     request.getParameter("password"));
             request.getSession().setAttribute("user", user);
-            return "redirect:/home";
+            return "redirect:/balloons/";
         }
         catch (InvalidUserCredentialsException exception) {
             model.addAttribute("hasError", true);
